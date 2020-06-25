@@ -1,0 +1,11 @@
+DROP DATABASE warhammerdb IF EXISTS;
+CREATE DATABASE warhammerdb;
+
+USE warhammerdb;
+
+DROP TABLE unit IF EXISTS;
+DROP TABLE armyList IF EXISTS;
+DROP TABLE squad IF EXISTS;
+DROP TABLE game IF EXISTS;
+
+CREATE TABLE units;
