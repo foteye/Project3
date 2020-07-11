@@ -2,9 +2,16 @@
   "name": "warhammer-turn",
   "version": "1.0.0",
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "start:prod": "node server.js",
+    "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
+    "client": "cd client && npm run start",
+    "seed": "node scripts/seedDB.js",
+    "install": "cd client && npm install",
+    "build": "cd client && npm run build",
+    "heroku-postbuild": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -18,13 +25,18 @@
   "homepage": "https://github.com/foteye/Project3#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "concurrently": "^5.2.0",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
+    "fs": "0.0.1-security",
+    "if-env": "^1.0.4",
     "mysql2": "^2.1.0",
+    "nodemon": "^2.0.4",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "path": "^0.12.7",
+    "per-env": "^1.0.2",
     "sequelize": "^6.3.0",
-    "uuid": "^8.2.0"
+    "uuidv4": "^6.1.1"
   }
 }

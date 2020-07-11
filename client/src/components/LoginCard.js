@@ -16,12 +16,20 @@ export const LoginCard = withRouter(({ history, location }) => {
   const onInputChangeHandler = ({ target: { name, value } }) =>
     setFormState({ ...formState, [name]: value });
 
-  const onFormSubmit = (e) => {
+  const onFormSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      //await fetch("/api/something", { method: "POST" });
-      if (formState.email && formState.password === "foti") {
+      const authResponse = await fetch("/api/users/authenticate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: formState.email,
+          password: formState.password,
+        }),
+      });
+
+      if (await authResponse.json()) {
         setUserState({ ...userState, authenticated: true });
         if (location.state && location.state.from)
           history.replace(location.state.from);
