@@ -19,16 +19,18 @@ export const NavbarWarhammer = withRouter(({ history }) => {
     history.push("/login");
   };
 
-  const home = () => {
-    history.push("/home");
+  const navigate = (to) => {
+    if (to === "/logout") {
+      setUserState({ ...userState, authenticated: false });
+      history.push("/login");
+    } else {
+      history.push(to);
+    }
   };
 
-  const builder = () => {
-    history.push("/builder");
-  };
   return (
     <Navbar bg="light" expand="lg">
-      <Navbar.Brand onClick={home}>
+      <Navbar.Brand onClick={() => navigate("/home")}>
         <img
           src={Logo}
           width="180"
@@ -41,10 +43,11 @@ export const NavbarWarhammer = withRouter(({ history }) => {
       </Navbar.Brand>
       <Navbar.Collapse>
         <Nav className="mr-auto">
-          <Nav.Link onClick={builder}>Army Builder</Nav.Link>
+          <Nav.Link onClick={() => navigate("/builder")}>Army Builder</Nav.Link>
+          <Nav.Link onClick={() => navigate("/dice")}>Dice</Nav.Link>
         </Nav>
         {authenticated && (
-          <Button onClick={logout} variant="warning">
+          <Button onClick={() => navigate("/logout")} variant="warning">
             Logout
           </Button>
         )}

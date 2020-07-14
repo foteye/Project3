@@ -7,8 +7,6 @@ export const PrivateRoute = ({ component: Component, ...rest }) => {
     userState: { authenticated },
   } = useContext(UserContext);
 
-  console.log(authenticated);
-
   return (
     <Route
       {...rest}

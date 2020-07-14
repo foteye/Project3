@@ -5,3 +5,4 @@ export * from "./SelectedUnits";
 export * from "./LoginCard";
 export * from "./SignupCard";
 export * from "./PrivateRoute";
+export * from "./DiceRoller";

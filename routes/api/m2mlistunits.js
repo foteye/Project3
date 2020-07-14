@@ -37,7 +37,7 @@ module.exports = router
       return res.status(500).json(err);
     }
   })
-  .post("/deleteOne", ({ body: { list, unit } }, res) => {
+  .post("/deleteOne", async ({ body: { list, unit } }, res) => {
     if (!list || !unit) {
       return res.status(400).json({});
     }
@@ -46,8 +46,8 @@ module.exports = router
       await db.M2MListUnit.destroy({
         where: {
           list,
-          unit
-        }
+          unit,
+        },
       });
       return res.status(200).json({});
     } catch (err) {

@@ -31,6 +31,7 @@ function App() {
                 <Route exact path="/signup" component={Pages.Signup} />
                 <PrivateRoute exact path="/builder" component={Pages.Builder} />
                 <PrivateRoute exact path="/game" component={Pages.Game} />
+                <PrivateRoute exact path="/dice" component={Pages.Dice} />
               </Switch>
             </Row>
           </Container>
