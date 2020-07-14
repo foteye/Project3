@@ -12,17 +12,17 @@ import {
 function DiceIcon({ d }) {
   switch (d) {
     case "1":
-      return <FaDiceOne style={{ fontSize: "24px" }} />;
+      return <FaDiceOne style={{ fontSize: "36px" }} />;
     case "2":
-      return <FaDiceTwo style={{ fontSize: "24px" }} />;
+      return <FaDiceTwo style={{ fontSize: "36px" }} />;
     case "3":
-      return <FaDiceThree style={{ fontSize: "24px" }} />;
+      return <FaDiceThree style={{ fontSize: "36px" }} />;
     case "4":
-      return <FaDiceFour style={{ fontSize: "24px" }} />;
+      return <FaDiceFour style={{ fontSize: "36px" }} />;
     case "5":
-      return <FaDiceFive style={{ fontSize: "24px" }} />;
+      return <FaDiceFive style={{ fontSize: "36px" }} />;
     case "6":
-      return <FaDiceSix style={{ fontSize: "24px" }} />;
+      return <FaDiceSix style={{ fontSize: "36px" }} />;
     default:
       return <></>;
   }

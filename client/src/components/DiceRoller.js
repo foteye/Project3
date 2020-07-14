@@ -57,7 +57,7 @@ function DiceRoller() {
       let diceItems = [];
       for (let i = 0; i < results[d.toString()]; i++) {
         diceItems.push(
-          <ListGroup.Item key={i}>
+          <ListGroup.Item key={i} style={{ padding: "2px" }}>
             <DiceIcon d={d.toString()} />
           </ListGroup.Item>
         );
