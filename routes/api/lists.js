@@ -10,7 +10,7 @@ module.exports = router
     }
 
     try {
-      const query = `SELECT * FROM List WHERE ${field} = ${value} ORDER BY name`;
+      const query = `SELECT * FROM List WHERE \`${field}\` = '${value}' ORDER BY name`;
       const lists = await db.sequelize.query(query, {
         model: db.List,
         mapToModel: true,

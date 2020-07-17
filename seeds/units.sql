@@ -1,6 +1,6 @@
 USE `warhammerdb`;
 
-INSERT INTO `units` (`id`,`name`,`modelCount`,`modelType`)
+INSERT INTO `unit` (`id`,`name`,`modelCount`,`modelType`)
 VALUES
     ("ebb6fefd-78ab-4dcc-a174-33c38f4235ca","Genestealers",20,"bc6a3ae3-976a-4a3d-806f-c5e56b5920d6"),
     ("6c61891c-ae0c-4194-9287-e26635d3b6a8","Termagants",30,"4cd66998-65ee-4214-bf06-641573fbbad6"),

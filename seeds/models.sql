@@ -1,6 +1,6 @@
 use `warhammerdb`;
 
-INSERT INTO `models` (`id`,`name`,`faction`,`costPerModel`,`unitLimit`)
+INSERT INTO `model` (`id`,`name`,`faction`,`costPerModel`,`unitLimit`)
 VALUES 
     ("4cd66998-65ee-4214-bf06-641573fbbad6","Termagant","Tyranids",4,30),
     ("bc6a3ae3-976a-4a3d-806f-c5e56b5920d6","Genestealer","Tyranids",12,20),

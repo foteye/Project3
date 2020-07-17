@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 
 import Card from "react-bootstrap/Card";
@@ -7,45 +7,62 @@ import Form from "react-bootstrap/Form";
 
 import { UserContext } from "../context/userContext";
 
-export const LoginCard = withRouter(({ history, location }) => {
+export const LoginCard = withRouter(({ history }) => {
   const [formState, setFormState] = useState({});
-  const [errors, setErrors] = useState(null);
+  const [errors, setErrors] = useState({
+    message: null,
+  });
 
   const { userState, setUserState } = useContext(UserContext);
+
+  // If user is already logged in, take them back to home
+  useEffect(() => {
+    if (userState.authenticated === true) {
+      history.push("/");
+    }
+  }, []);
 
   const onInputChangeHandler = ({ target: { name, value } }) =>
     setFormState({ ...formState, [name]: value });
 
+  const validateEmail = (email) => {
+    return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
+  };
+
   const onFormSubmit = async (e) => {
     e.preventDefault();
+    const { email, password } = formState;
+
+    if (!validateEmail(email)) {
+      setErrors({ message: "Please enter a valid email" });
+      return;
+    }
 
     try {
       const authResponse = await fetch("/api/users/authenticate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          email: formState.email,
-          password: formState.password,
+          email,
+          password,
         }),
       });
-
-      if (await authResponse.json()) {
-        setUserState({ ...userState, authenticated: true });
-        if (location.state && location.state.from)
-          history.replace(location.state.from);
-        else history.push("/");
+      const result = await authResponse.json();
+      if (authResponse.ok && result.authenticated) {
+        setUserState({
+          ...userState,
+          firstName: result.firstName,
+          id: result.id,
+          authenticated: true,
+        });
+        history.push("/home");
       } else {
-        throw new Error("Invalid Username or Password");
+        setErrors({ message: result.message });
       }
     } catch (err) {
-      setErrors(err.message);
+      setErrors({ message: err.message });
     }
   };
-
-  // If user is already logged in, take them back to home
-  if (userState.authenticated === true) {
-    history.push("/");
-  }
 
   return (
     <Card style={{ marginTop: "30px" }}>
@@ -74,7 +91,7 @@ export const LoginCard = withRouter(({ history, location }) => {
               onChange={onInputChangeHandler}
             />
           </Form.Group>
-          {errors && <p style={{ color: "red", fontSize: "12px" }}>{errors}</p>}
+          {<p style={{ color: "red", fontSize: "12px" }}>{errors.message}</p>}
           <Button
             type="submit"
             variant="primary"

@@ -10,7 +10,6 @@ import { UserContext } from "../context/userContext";
 export const SignupCard = withRouter(({ history, location }) => {
   const [formState, setFormState] = useState({});
   const [errors, setErrors] = useState({
-    code: null,
     message: null,
   });
 
@@ -19,23 +18,54 @@ export const SignupCard = withRouter(({ history, location }) => {
   const onInputChangeHandler = ({ target: { name, value } }) =>
     setFormState({ ...formState, [name]: value });
 
-  const onFormSubmit = (e) => {
+  const validateEmail = (email) => {
+    return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
+  };
+
+  const onFormSubmit = async (e) => {
     e.preventDefault();
+    const { email, password, firstName, lastName, confirmPassword } = formState;
+
+    if (!validateEmail(email)) {
+      setErrors({ message: "Please enter a valid email" });
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setErrors({ message: "Passwords must match" });
+      return;
+    }
+
+    if (password.length < 8) {
+      setErrors({ message: "Password must be at least 8 characters long" });
+      return;
+    }
 
     try {
-      //await POST("/api/something", { method: "POST" });
-      //send user off to API and await favorable response
-      if (formState.password === formState.confirmPassword) {
-        setUserState({ ...userState, ...formState, authenticated: true });
+      const signupResponse = await fetch("/api/users/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          password,
+          firstName,
+          lastName,
+        }),
+      });
+      const result = await signupResponse.json();
+      if (signupResponse.ok) {
+        setUserState({
+          ...userState,
+          ...result,
+          authenticated: true,
+          password: "",
+        });
         history.push("/home");
       } else {
-        throw new Error("Invalid Username or Password");
+        setErrors({ message: result.message });
       }
     } catch (err) {
-      setErrors({
-        message: "Passwords must match",
-        code: "badMatch",
-      });
+      setErrors({ message: err });
     }
   };
 
@@ -92,9 +122,7 @@ export const SignupCard = withRouter(({ history, location }) => {
               onChange={onInputChangeHandler}
             />
           </Form.Group>
-          {errors.code === "badMatch" && (
-            <p style={{ color: "red", fontSize: "12px" }}>{errors.message}</p>
-          )}
+          {<p style={{ color: "red", fontSize: "12px" }}>{errors.message}</p>}
           <Button
             type="submit"
             variant="primary"

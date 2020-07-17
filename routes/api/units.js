@@ -39,7 +39,7 @@ module.exports = router
     }
 
     try {
-      const query = `SELECT * FROM Unit WHERE ${field} = ${value} ORDER BY name`;
+      const query = `SELECT * FROM Unit WHERE \`${field}\` = '${value}' ORDER BY name`;
       const units = await db.sequelize.query(query, {
         model: db.Unit,
         mapToModel: true,

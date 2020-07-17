@@ -10,7 +10,7 @@ import * as Pages from "./pages";
 import { NavbarWarhammer, PrivateRoute } from "./components";
 
 import UserContextProvider from "./context/userContext";
-import GameContextProvider, { GameContext } from "./context/gameContext";
+import GameContextProvider from "./context/gameContext";
 
 function App() {
   return (

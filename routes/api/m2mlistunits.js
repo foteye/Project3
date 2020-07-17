@@ -10,7 +10,7 @@ module.exports = router
     }
 
     try {
-      const M2MQuery = `SELECT * FROM List l LEFT JOIN M2MListUnit m ON m.list = l.id WHERE m.list = '${listId}'`;
+      const M2MQuery = `SELECT u.* FROM unit u INNER JOIN M2MListUnit m2m ON m2m.unit = u.id AND m2m.list = '${listId}'`;
       const M2MLists = await db.sequelize.query(M2MQuery, {
         model: db.M2MListUnit,
         mapToModel: true,
