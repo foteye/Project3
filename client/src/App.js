@@ -29,7 +29,16 @@ function App() {
                 <PrivateRoute exact path="/home" component={Pages.Home} />
                 <Route exact path="/login" component={Pages.Login} />
                 <Route exact path="/signup" component={Pages.Signup} />
-                <PrivateRoute exact path="/builder" component={Pages.Builder} />
+                <PrivateRoute
+                  exact
+                  path="/listbuilder"
+                  component={Pages.ListBuilder}
+                />
+                <PrivateRoute
+                  exact
+                  path="/unitbuilder"
+                  component={Pages.UnitBuilder}
+                />
                 <PrivateRoute exact path="/game" component={Pages.Game} />
                 <PrivateRoute exact path="/dice" component={Pages.Dice} />
               </Switch>

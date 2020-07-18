@@ -6,7 +6,7 @@ const bcrypt = require("bcryptjs");
 module.exports = router
   .get("/", async (req, res) => {
     try {
-      const models = await db.Models.findAll();
+      const models = await db.Model.findAll();
       return res.status(200).json(models);
     } catch (err) {
       return res.status(500).json(err);
@@ -44,7 +44,6 @@ module.exports = router
         model: db.Model,
         mapToModel: true,
       });
-
       return res.status(200).json(models);
     } catch (err) {
       return res.status(500).json(err);

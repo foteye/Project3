@@ -6,7 +6,6 @@ export * from "./LoginCard";
 export * from "./SignupCard";
 export * from "./PrivateRoute";
 export * from "./DiceRoller";
-export * from "./GamePane";
 export * from "./ArmyListView";
 export * from "./PlayerCard";
 export * from "./UnitCard";

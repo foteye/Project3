@@ -5,7 +5,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { UnitSelector, SelectedUnits } from "../components";
 
-function Builder() {
+function ListBuilder() {
   return (
     <Container fluid style={{ margin: "20px" }}>
       <Row>
@@ -20,4 +20,4 @@ function Builder() {
   );
 }
 
-export { Builder };
+export { ListBuilder };

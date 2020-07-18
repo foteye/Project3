@@ -13,12 +13,6 @@ export const NavbarWarhammer = withRouter(({ history }) => {
   } = useContext(UserContext);
 
   const { userState, setUserState } = useContext(UserContext);
-
-  const logout = () => {
-    setUserState({ ...userState, authenticated: false });
-    history.push("/login");
-  };
-
   const navigate = (to) => {
     if (to === "/logout") {
       setUserState({ ...userState, authenticated: false });
@@ -43,7 +37,12 @@ export const NavbarWarhammer = withRouter(({ history }) => {
       </Navbar.Brand>
       <Navbar.Collapse>
         <Nav className="mr-auto">
-          <Nav.Link onClick={() => navigate("/builder")}>Army Builder</Nav.Link>
+          <Nav.Link onClick={() => navigate("/listbuilder")}>
+            Army Builder
+          </Nav.Link>
+          <Nav.Link onClick={() => navigate("/unitbuilder")}>
+            Unit Builder
+          </Nav.Link>
           <Nav.Link onClick={() => navigate("/dice")}>Dice</Nav.Link>
         </Nav>
         {authenticated && (

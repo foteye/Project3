@@ -3,10 +3,10 @@ import React, { useState, useContext, useEffect } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
-import { ArmyListView, GamePane } from "../components";
+import { ArmyListView, PlayerCard, UnitCard } from "../components";
 
 import { GameContext } from "../context/gameContext";
-import UnitContextProvider from "../context/activeUnitContext";
+import ActiveUnitContextProvider from "../context/activeUnitContext";
 
 function Game() {
   const { gameState, setGameState } = useContext(GameContext);
@@ -42,21 +42,29 @@ function Game() {
   };
 
   return (
-    <UnitContextProvider>
-      <Container fluid style={{ margin: "20px" }}>
-        <Row>
+    <Container fluid style={{ margin: "20px" }}>
+      <Row>
+        <ActiveUnitContextProvider>
           <Col>
             <ArmyListView listId={gameState.p1list} player="P1" />
           </Col>
-          <Col xs={8}>
-            <GamePane />
+          <Col style={{ borderRight: "1px solid #eee", margin: "10px" }} xs={4}>
+            <PlayerCard player="p1" />
+            <UnitCard player="P1" />
           </Col>
+        </ActiveUnitContextProvider>
+        <ActiveUnitContextProvider>
+          <Col xs={4}>
+            <PlayerCard player="p2" />
+            <UnitCard player="P2" />
+          </Col>
+
           <Col>
             <ArmyListView listId={gameState.p2list} player="P2" />
           </Col>
-        </Row>
-      </Container>
-    </UnitContextProvider>
+        </ActiveUnitContextProvider>
+      </Row>
+    </Container>
   );
 }
 
